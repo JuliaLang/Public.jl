@@ -82,8 +82,12 @@ function _is_valid_macro_expr(expr::Expr)
     return true
 end
 
-# TODO: figure out if we actually want to `export`,
-# or if we just want to mark as public.
-export @public
+# Do not export the macro, just declare it as public. This macro is
+# only useful in packages and it is bad practice to import every
+# symbol with an open-ended `using` in package code, since it can cause
+# future import conflicts. Not that it is very likely to happen with
+# this specific package and macro, but we shouldn't encourage bad
+# practices.
+@public @public
 
 end # module Public
