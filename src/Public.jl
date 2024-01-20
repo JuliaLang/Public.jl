@@ -43,6 +43,13 @@ function _get_symbols(expr::Expr)
     num_symbols = length(expr.args)
     symbols = Vector{Symbol}(undef, num_symbols)
     for (i, arg) in enumerate(expr.args)
+        if arg isa Symbol
+            symbols[i] = arg
+        elseif _valid_macro(arg)
+            symbols[i] = arg.args[1]
+        else
+            throw(ArgumentError("cannot mark `$arg` as public. Try `@compat public foo, bar`."))
+        end
     end
     return symbols
 end
