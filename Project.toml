@@ -1,0 +1,4 @@
+name = "Public"
+uuid = "431bcebd-1456-4ced-9d72-93c2757fff0b"
+authors = ["The Julia Project", "contributors"]
+version = "1.0.0-DEV"
