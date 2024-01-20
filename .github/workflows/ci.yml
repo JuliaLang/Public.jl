@@ -1,0 +1,50 @@
+name: CI
+on:
+  pull_request:
+  push:
+    branches:
+      - main
+    tags: '*'
+  merge_group:
+concurrency:
+  # Skip intermediate builds: all builds except for builds on the `main` branch
+  # Cancel intermediate builds: only pull request builds
+  group: ${{ github.workflow }}-${{ github.ref }}-${{ github.ref != 'refs/heads/main' || github.run_number }}
+  cancel-in-progress: ${{ startsWith(github.ref, 'refs/pull/') }}
+permissions:
+  contents: read
+jobs:
+  test:
+    runs-on: ${{ matrix.os }}
+    timeout-minutes: 10
+    strategy:
+      fail-fast: false
+      matrix:
+        version:
+          - '1.0' # First LTS
+          - '1.1' # TODO: delete this line
+          - '1.2' # TODO: delete this line
+          - '1.3' # Not an LTS, but a popular lower bound in the ecosystem, due to Artifacts
+          - '1.4' # TODO: delete this line
+          - '1.5' # TODO: delete this line
+          - '1.6' # Second LTS
+          - '1.7' # TODO: delete this line
+          - '1.8' # TODO: delete this line
+          - '1.9' # TODO: delete this line
+          - '1' # automatically expands to latest stable 1.x release of Julia
+          - 'nightly'
+        os:
+          - ubuntu-latest
+    steps:
+      - uses: actions/checkout@8e5e7e5ab8b370d6c329ec480221332ada57f0ab
+        with:
+          persist-credentials: false
+      - uses: julia-actions/setup-julia@a1561e938c17e7aaf8236334d6d533e774c71dcd
+        with:
+          version: ${{ matrix.version }}
+      - uses: julia-actions/julia-buildpkg@90dd6f23eb49626e4e6612cb9d64d456f86e6a1c
+      - uses: julia-actions/julia-runtest@79a7e100883947123f8263c5f06e6c0ea3eb972f
+      - uses: julia-actions/julia-processcoverage@1c0082792350ade637463730c8092e715d7b1a92
+      - uses: codecov/codecov-action@eaaf4bedf32dbdc6b720b63067d99c4d77d6047d
+        with:
+          file: lcov.info
