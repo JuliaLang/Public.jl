@@ -14,9 +14,10 @@ using Test: @test
         bad_exprs = [
             Meta.parse("@foo bar"),
             Meta.parse("@foo(bar)"),
-            Meta.parse("foo"), # TODO: delete
             Meta.parse("foo()"),
             Meta.parse("foo(@bar)"),
+            Meta.parse("@foo @bar"),
+            Meta.parse("@foo(@bar)"),
         ]
         for expr in good_exprs
             @test Public._is_valid_macro_expr(expr)
