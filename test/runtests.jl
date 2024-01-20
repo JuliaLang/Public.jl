@@ -14,7 +14,7 @@ using Test: @test
         bad_exprs = [
             Meta.parse("@foo bar"),
             Meta.parse("@foo(bar)"),
-            # Meta.parse("foo"),
+            Meta.parse("foo"), # TODO: delete
             Meta.parse("foo()"),
             Meta.parse("foo(@bar)"),
         ]
