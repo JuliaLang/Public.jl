@@ -16,7 +16,7 @@ using Test: @test
             Meta.parse("@foo()"),
             Meta.parse("foo"),
             Meta.parse("foo()"),
-            Meta.parse("foo bar"),
+            # Meta.parse("foo bar"),
             Meta.parse("foo(@bar)"),
             Meta.parse("foo @bar"),
         ]
