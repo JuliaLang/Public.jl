@@ -42,7 +42,7 @@ jobs:
       - uses: julia-actions/setup-julia@ac0d62164df5a47de404f4e96ce86a1a28a28d56
         with:
           version: ${{ matrix.version }}
-      - uses: julia-actions/julia-buildpkg@90dd6f23eb49626e4e6612cb9d64d456f86e6a1c
+      - uses: julia-actions/julia-buildpkg@e3eb439fad4f9aba7da2667e7510e4a46ebc46e1
       - uses: julia-actions/julia-runtest@1e03e0122a598a569004c1e26950e2547b350ec0
       - uses: julia-actions/julia-processcoverage@03114f09f119417c3242a9fb6e0b722676aedf38
       - uses: codecov/codecov-action@1e68e06f1dbfde0e4cefc87efeba9e4643565303
