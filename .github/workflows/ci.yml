@@ -45,7 +45,7 @@ jobs:
       - uses: julia-actions/julia-buildpkg@e3eb439fad4f9aba7da2667e7510e4a46ebc46e1
       - uses: julia-actions/julia-runtest@678da69444cd5f13d7e674a90cb4f534639a14f9
       - uses: julia-actions/julia-processcoverage@03114f09f119417c3242a9fb6e0b722676aedf38
-      - uses: codecov/codecov-action@ad3126e916f78f00edff4ed0317cf185271ccc2d
+      - uses: codecov/codecov-action@671740ac38dd9b0130fbe1cec585b89eea48d3de
         with:
           token: ${{ secrets.CODECOV_TOKEN }}
           files: lcov.info
